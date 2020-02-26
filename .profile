@@ -28,7 +28,6 @@ fi
 
 export WORKON_HOME=~/.virtualenv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 source /usr/local/bin/virtualenvwrapper.sh
 export PATH=$PATH:/home/lynshi/bin
 export DOCKER_HOST=tcp://localhost:2375
