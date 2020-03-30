@@ -1,7 +1,0 @@
-[user]
-	email = shilyndon@gmail.com
-	name = Lyndon Shi
-[core]
-	fileMode = true
-	autocrlf = false
-    eol = lf
