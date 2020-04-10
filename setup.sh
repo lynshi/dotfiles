@@ -1,9 +1,8 @@
 CWD=$(pwd)
 
-rm ~/.profile
-rm ~/.vimrc
+cat .bashrc >> ~/.bashrc
 
-cp $CWD"/.profile" ~/.profile
+rm ~/.vimrc
 ln -s $CWD"/.vimrc" ~/.vimrc
 
 sudo apt-get update
