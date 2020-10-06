@@ -1,0 +1,78 @@
+- hosts: localhost
+  vars:
+    git_email: shilyndon@gmail.com
+  pre_tasks:
+    - name: Validate Python version is >=3.8
+      delegate_to: hostvars[inventory_hostname]['ansible_python_version']
+      assert:
+        that:
+          - ansible_python_version is defined
+          - ansible_python_version is version('3.8.0', '>=')
+        fail_msg: "'Python' version must be at least 3.8."
+      run_once: True
+  tasks:
+    # Python setup.
+    - name: Install pip
+      become: yes
+      apt:
+        name: "python3-pip"
+    - name: Install virtualenvwrapper
+      pip:
+        name: virtualenvwrapper
+        executable: pip3
+        extra_args: --user
+
+    # Go setup
+    - name: Download Go 1.15.2
+      get_url:
+        url: "https://golang.org/dl/go1.15.2.linux-amd64.tar.gz"
+        dest: "/tmp"
+    - name: Install Go
+      become: true
+      unarchive:
+        src: "/tmp/go1.15.2.linux-amd64.tar.gz"
+        dest: "/usr/local"
+    - name: Remove Go tarball
+      file:
+        state: absent
+        path: "/tmp/go1.15.2.linux-amd64.tar.gz"
+
+    # Git setup
+    - name: Set Git name
+      community.general.git_config:
+        name: user.name
+        scope: global
+        value: "Lyndon Shi"
+    - name: Set Git email
+      community.general.git_config:
+        name: user.email
+        scope: global
+        value: "{{ git_email }}"
+    - name: Set Git editor
+      community.general.git_config:
+        name: core.editor
+        scope: global
+        value: vim
+
+    # Set up vim.
+    - name: Copying ~/.vimrc
+      copy:
+        src: "{{ playbook_dir }}/.vimrc"
+        dest: "{{ ansible_env.HOME }}/.vimrc"
+
+    # Set up .bashrc.
+    - name: Updating ~/.bashrc for new programs
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        insertafter: EOF
+        create: yes
+        marker: "\n# <-- {mark} ANSIBLE MANAGED BLOCK -->\n"
+        block: |
+          PS1="\t $PS1" # Always show timestamp in case of WSL clock drift.
+
+          export WORKON_HOME=~/.virtualenv
+          export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+          export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+          source ~/.local/bin/virtualenvwrapper.sh
+          
+          export PATH=$PATH:/usr/local/go/bin

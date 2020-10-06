@@ -1,0 +1,22 @@
+- hosts: localhost
+  tasks:
+    - name: Get distro
+      command:
+        lsb_release -cs
+      register: distro_name
+    - name: Add Microsoft repository key
+      apt_key:
+        url: "https://packages.microsoft.com/keys/microsoft.asc"
+        state: present
+      become: yes
+    - name: Add Azure CLI software repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ {{ distro_name.stdout }} main"
+        state: present
+      become: true
+    - name: Install the Azure CLI
+      apt:
+        name: azure-cli
+        state: present
+        force: true
+      become: true
