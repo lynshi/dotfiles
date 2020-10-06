@@ -1,0 +1,23 @@
+- hosts: localhost
+  tasks:
+    - name: Install pip
+      become: yes
+      apt:
+        name: "python3-pip"
+    - name: Install virtualenvwrapper
+      pip:
+        name: virtualenvwrapper
+        executable: pip3
+        extra_args: --user
+    - name: Updating ~/.bashrc for virtualenvwrapper
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        insertafter: EOF
+        create: yes
+        marker: "{mark} ANSIBLE MANAGED BLOCK -->"
+        marker_begin: "\n# <-- BEGIN"
+        marker_end: "# <-- END"
+        block: |
+          export WORKON_HOME=~/.virtualenv
+          export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+          source ~/.local/bin/virtualenvwrapper.sh
