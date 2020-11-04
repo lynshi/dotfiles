@@ -4,29 +4,32 @@
       become: yes
       apt:
         name: "python3-pip"
+    - name: Get distro
+      command:
+        lsb_release -cs
+      register: distro_name
     - name: Install Python3.8
       apt:
         name: python3.8
         state: present
         force: true
       become: true
-      when: ansible_python_version is version('3.8.0', '<')
-    - name: Install virtualenvwrapper
+      when: distro_name.stdout == "bionic"
+    - name: Install pip for Python3.8
+      shell: python3.8 -m pip install pip
+      when: distro_name.stdout == "bionic"
+    - name: Install virtualenv for Python3.8
+      shell: python3.8 -m pip install virtualenv
+      when: distro_name.stdout == "bionic"
+    - name: Install virtualenvwrapper (Ubuntu 18.04)
+      shell: python3.8 -m pip install virtualenvwrapper
+      when: distro_name.stdout == "bionic"
+    - name: Install virtualenvwrapper (Ubuntu 20.04)
       pip:
         name: virtualenvwrapper
         executable: pip3
         extra_args: --user
-    - name: Updating ~/.bashrc to use Python3.8 for virtualenvwrapper
-      blockinfile:
-        dest: "{{ ansible_env.HOME }}/.bashrc"
-        insertafter: EOF
-        create: yes
-        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR PYTHON 3.8 -->"
-        marker_begin: "BEGIN"
-        marker_end: "END"
-        block: |
-          export VIRTUALENVWRAPPER_PYTHON=python3.8
-      when: ansible_python_version is version('3.8.0', '<')
+      when: distro_name.stdout == "focal"
     - name: Updating ~/.bashrc for virtualenvwrapper
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
@@ -37,5 +40,5 @@
         marker_end: "END"
         block: |
           export WORKON_HOME=~/.virtualenv
-          export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+          export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.8
           source ~/.local/bin/virtualenvwrapper.sh
