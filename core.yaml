@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: mycomputer
   vars:
     git_email: shilyndon@gmail.com
   tasks:
@@ -26,13 +26,13 @@
         dest: "{{ ansible_env.HOME }}/.vimrc"
 
     # Set up .bashrc.
-    - name: Updating ~/.bashrc for new programs
+    - name: Updating ~/.bashrc to print timestamp
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
         insertafter: EOF
         create: yes
-        marker: "{mark} ANSIBLE MANAGED BLOCK -->"
-        marker_begin: "\n# <-- BEGIN"
-        marker_end: "# <-- END"
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR TIMESTAMP -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
         block: |
           PS1="\t $PS1" # Always show timestamp in case of WSL clock drift.

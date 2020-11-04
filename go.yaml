@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: mycomputer
   tasks:
     - name: Download Go 1.15.2
       get_url:
@@ -18,8 +18,8 @@
         dest: "{{ ansible_env.HOME }}/.bashrc"
         insertafter: EOF
         create: yes
-        marker: "{mark} ANSIBLE MANAGED BLOCK -->"
-        marker_begin: "\n# <-- BEGIN"
-        marker_end: "# <-- END"
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR GO -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
         block: |
           export PATH=$PATH:/usr/local/go/bin

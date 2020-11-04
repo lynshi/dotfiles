@@ -1,5 +1,7 @@
 #!/bin/bash
-# Sets up some common packages and configuration. Last used on Ubuntu 20.04.
+# Sets up some common packages and configuration.
+# All arguments passed to this script are passed to `ansible-playbook`.
+# For example, `./setup.sh python.yaml` eventually runs `ansible-playbook python.yaml`.
 
 # For coloring terminal output.
 RED='\033[0;31m'
@@ -18,7 +20,16 @@ echo -e "${BLUE}Updating packages...${NC}"
 sudo apt update && \
     sudo apt upgrade -y
 
-echo -e "${BLUE}Installing ansible and running playbooks...${NC}"
+codename=$(lsb_release -cs)
+echo -e "${BLUE}Distribution codename: ${codename}${NC}"
+if [ "$codename" = "bionic" ]; then
+    echo -e "${BLUE}Adding Ansible PPA for Ansible 2.9+ (required for 'ansible-galaxy collection')${NC}"
+    sudo apt install -y software-properties-common
+    sudo apt-add-repository -y ppa:ansible/ansible
+    sudo apt update
+fi
+
+echo -e "${BLUE}Installing ansible...${NC}"
 sudo apt install -y ansible
 
 echo -e "${BLUE}Installing ansible plugins...${NC}"

@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: mycomputer
   tasks:
     - name: Install nvm
       shell: >
