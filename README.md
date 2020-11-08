@@ -6,3 +6,6 @@ Collection of dotfiles and other setup scripts for setting up a new Linux machin
 ./setup.sh -i hosts.yaml core.yaml azure.yaml go.yaml python.yaml node.yaml
 ```
 The `-i hosts.yaml` option [runs the playbook on localhost without warnings](https://github.com/ansible/ansible/issues/33132#issuecomment-363908285).
+
+## Warning
+You may have to restart your shell to get `virtualenvwrapper` to detect `virtualenv` properly. I haven't had time to debug this :/
