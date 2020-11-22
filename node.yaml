@@ -10,3 +10,14 @@
       shell: "source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install node"
       args:
         executable: /bin/bash
+    - name: Updating ~/.bashrc for nvm
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR NVM -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
