@@ -13,7 +13,7 @@
       file:
         state: absent
         path: "/tmp/go1.15.2.linux-amd64.tar.gz"
-    - name: Updating ~/.bashrc for go
+    - name: Update ~/.bashrc for go
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
         insertafter: EOF

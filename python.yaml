@@ -30,7 +30,7 @@
         executable: pip3
         extra_args: --user
       when: distro_name.stdout == "focal"
-    - name: Updating ~/.bashrc for virtualenvwrapper
+    - name: Update ~/.bashrc for virtualenvwrapper
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
         insertafter: EOF

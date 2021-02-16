@@ -1,0 +1,56 @@
+- hosts: mycomputer
+  tasks:
+    - name: Set Git name
+      community.general.git_config:
+        name: user.name
+        scope: global
+        value: "Lyndon Shi"
+    - name: Set Git email
+      community.general.git_config:
+        name: user.email
+        scope: global
+        value: "{{ git_email }}"
+    - name: Set Git editor
+      community.general.git_config:
+        name: core.editor
+        scope: global
+        value: vim
+    # Thanks to https://chaosmail.github.io/programming/2015/03/04/install-deb-packages-in-ansible/
+    - name: Check if my_package is installed
+      command: dpkg-query -W gcmcore
+      register: gcmcore_check
+      failed_when: gcmcore_check.rc > 1
+      changed_when: gcmcore_check.rc == 1
+    # Change the url here and the `apt` line in the next step if changing the version.
+    - name: Download Git Credential Manager Core
+      get_url:
+        url: "https://github.com/microsoft/Git-Credential-Manager-Core/releases/download/v2.0.318-beta/gcmcore-linux_amd64.2.0.318.44100.deb"
+        dest: "/tmp"
+      when: gcmcore_check.rc == 1
+    - name: Install Git Credential Manager Core
+      apt: deb="/tmp/gcmcore-linux_amd64.2.0.318.44100.deb"
+      become: true
+      when: gcmcore_check.rc == 1
+    - name: Install pass
+      apt:
+        name: pass
+        state: present
+        force: true
+      become: true
+    - name: Export TTY for pass (presumably necessary for WSL)
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR GPG_TTY -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          export GPG_TTY=$(tty)
+    - name: Configure GCM Core
+      shell: git-credential-manager-core configure
+    - name: Configure gpg as the credential store for GCM Core
+      community.general.git_config:
+        name: credential.credentialStore
+        scope: global
+        value: gpg

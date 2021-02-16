@@ -1,24 +1,5 @@
 - hosts: mycomputer
-  vars:
-    git_email: shilyndon@gmail.com
   tasks:
-    # Git setup
-    - name: Set Git name
-      community.general.git_config:
-        name: user.name
-        scope: global
-        value: "Lyndon Shi"
-    - name: Set Git email
-      community.general.git_config:
-        name: user.email
-        scope: global
-        value: "{{ git_email }}"
-    - name: Set Git editor
-      community.general.git_config:
-        name: core.editor
-        scope: global
-        value: vim
-
     # Set up vim.
     - name: Copying ~/.vimrc
       copy:
