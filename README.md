@@ -18,7 +18,7 @@ a utility for managing GitHub and Azure DevOps credentials to connect via HTTPS 
 version is hardcoded in the playbook, so please find the latest release [here](https://github.com/microsoft/Git-Credential-Manager-Core/releases/latest). I also install [`pass`](https://www.passwordstore.org/) to use as the credential store for GCM Core, since I expect to
 be on WSL which has no GUI. This also means I set `GPG_TTY`. See the [GCM Core documentation](https://github.com/microsoft/Git-Credential-Manager-Core/blob/master/docs/linuxcredstores.md) for further details.
 
-[Additional setup is required for Git Credential Manager Core](https://github.com/microsoft/Git-Credential-Manager-Core/blob/master/docs/linuxcredstores.md#2-gpgpass-compatible-files) that ~~cannot be done via ansible~~ is easier to do manually.
+[Additional setup is required for Git Credential Manager Core](https://github.com/microsoft/Git-Credential-Manager-Core/blob/master/docs/linuxcredstores.md#2-gpgpass-compatible-files) that seems easier to do manually.
 1. Generate a GPG key: `gpg --gen-key`.
 2. Initialize the credential store with `pass init <gpg-key-id>`. If you are having trouble determining
 the GPG key id, please see these [GitHub docs](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)
