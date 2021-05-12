@@ -23,14 +23,14 @@ be on WSL which has no GUI. This also means I set `GPG_TTY`. See the [GCM Core d
 2. Initialize the credential store with `pass init <gpg-key-id>`. If you are having trouble determining
 the GPG key id, please see these [GitHub docs](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)
 for more information.
-3. GCM Core seems to have trouble writing to `.gitconfig` correctly. You'll need to do this to get it to work.
+3. GCM Core seems to have trouble writing to `.gitconfig` correctly. If there is a problem, an error will be printed on `git push` and you'll be asked for your GitHub credentials. You may need to do this to get it to work.
     1. `which git-credential-manager-core` to find out where the executable is.
     2. Open `~/.gitconfig`.
     3. Change `credential.helper` to `<path to git-credential-manager-core>`, for example,
   ```
   helper = /usr/bin/git-credential-manager-core
   ```
-  If you don't do this, you'll get something like
+  If you don't do this, you could get something like
   ```
   helper = /var/tmp/.net/<username>/git-credential-manager-core/unqypyc0.awl/git-credential-manager-core
   ```
@@ -38,4 +38,4 @@ for more information.
   ```
   git-credential-manager-core/unqypyc0.awl/git-credential-manager-core: not found
   ```
-  when authenticating to repositories.
+  when authenticating to repositories. Other errors are also possible depending on the version of GCM Core.
