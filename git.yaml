@@ -24,11 +24,11 @@
     # Change the url here and the `apt` line in the next step if changing the version.
     - name: Download Git Credential Manager Core
       get_url:
-        url: "https://github.com/microsoft/Git-Credential-Manager-Core/releases/download/v2.0.318-beta/gcmcore-linux_amd64.2.0.318.44100.deb"
+        url: "https://github.com/microsoft/Git-Credential-Manager-Core/releases/download/v2.0.394-beta/gcmcore-linux_amd64.2.0.394.50751.deb"
         dest: "/tmp"
       when: gcmcore_check.rc == 1
     - name: Install Git Credential Manager Core
-      apt: deb="/tmp/gcmcore-linux_amd64.2.0.318.44100.deb"
+      apt: deb="/tmp/gcmcore-linux_amd64.2.0.394.50751.deb"
       become: true
       when: gcmcore_check.rc == 1
     - name: Install pass
