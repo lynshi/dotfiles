@@ -1,0 +1,13 @@
+- hosts: mycomputer
+  tasks:
+    # https://github.com/GitCredentialManager/git-credential-manager/blob/793a74cd540fb6030e2c7ee5e204f37a5f2a20d3/docs/wsl.md#windows-subsystem-for-linux-wsl
+    - name: Set Git credential helper
+      community.general.git_config:
+        name: credential.helper
+        scope: global
+        value: "/mnt/c/Program\ Files/Git/mingw64/libexec/git-core/git-credential-manager-core.exe"
+    - name: Setup for Azure DevOps
+      community.general.git_config:
+        name: credential.https://dev.azure.com.useHttpPath
+        scope: global
+        value: true

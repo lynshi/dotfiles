@@ -13,9 +13,9 @@ The `-i hosts.yaml` option [runs the playbook on localhost without warnings](htt
 You may have to restart your shell to get `virtualenvwrapper` to detect `virtualenv` properly. I haven't had time to debug this :/
 
 ## Git setup
-WARNING! Do not use `git.yaml` with WSL. See the section below.
+WARNING! Do not use `gcm.yaml` with WSL. See the section below.
 
-The ansible playbook `git.yaml` installs [Git Credential Manager](https://github.com/GitCredentialManager/git-credential-manager),
+The ansible playbook `gcm.yaml` installs [Git Credential Manager](https://github.com/GitCredentialManager/git-credential-manager),
 a utility for managing GitHub and Azure DevOps credentials to connect via HTTPS instead of SSH. A
 version is hardcoded in the playbook, so please find the latest release [here](https://github.com/microsoft/Git-Credential-Manager-Core/releases/latest). I also install [`pass`](https://www.passwordstore.org/) to use as the credential store for GCM Core. See the [GCM documentation](https://github.com/GitCredentialManager/git-credential-manager/blob/793a74cd540fb6030e2c7ee5e204f37a5f2a20d3/docs/credstores.md#gpgpass-compatible-files) for further details.
 
@@ -45,6 +45,4 @@ for more information.
 2. [Version 2.0.605 (the latest version at time of writing) does not set the symlink correctly in `/usr/local/bin`.](https://github.com/GitCredentialManager/git-credential-manager/issues/570)
 
 ### Windows Subsystem for Linux
-On WSL, you should integrate with Git for Windows and skip `git.yaml` (i.e. set up `~/.gitconfig` manually).
-See the [documentation](https://github.com/GitCredentialManager/git-credential-manager/blob/793a74cd540fb6030e2c7ee5e204f37a5f2a20d3/docs/wsl.md#windows-subsystem-for-linux-wsl) for details.
-Following the normal Linux installation workflow can result in errors like `"fatal: Unable to open a web page using xdg-open"` when performing `git` operations.
+On WSL, you should install Git for Windows on Windows and use `gcm-wsl.yaml` to update `.gitconfig` to use Git for Windows for authentication. You can find the latest docs [here](https://github.com/GitCredentialManager/git-credential-manager/blob/main/docs/wsl.md#windows-subsystem-for-linux-wsl).
