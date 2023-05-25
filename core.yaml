@@ -17,3 +17,13 @@
         marker_end: "END"
         block: |
           PS1="\t $PS1" # Always show timestamp in case of WSL clock drift.
+    - name: Update ~/.bashrc for ansible
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR ANSIBLE -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          export PATH=$PATH:$HOME/.local/bin

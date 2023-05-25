@@ -1,11 +1,11 @@
-Collection of dotfiles and other setup scripts for setting up a new Linux machine. So far, I've only used this on [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/) on Ubuntu 18.04/20.04.
+Collection of dotfiles and other setup scripts for setting up a new Linux machine. Last used for  [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/) on Ubuntu 22.04.
 
 # Usage
 `setup.sh` installs dependencies required for the Ansible playbooks to run before running said playbooks. All arguments passed to it are forwarded to the `ansible-playbook` command.
 
 ## Example
 ```
-./setup.sh -i hosts.yaml core.yaml git.yaml azure.yaml go.yaml python.yaml node.yaml --extra-vars "git_email=<your Git email>"
+./setup.sh -i hosts.yaml core.yaml git.yaml azure.yaml go.yaml python.yaml node.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'"
 ```
 The `-i hosts.yaml` option [runs the playbook on localhost without warnings](https://github.com/ansible/ansible/issues/33132#issuecomment-363908285).
 

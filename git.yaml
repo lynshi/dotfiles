@@ -4,7 +4,7 @@
       community.general.git_config:
         name: user.name
         scope: global
-        value: "Lyndon Shi"
+        value: "{{ git_name }}"
     - name: Set Git email
       community.general.git_config:
         name: user.email

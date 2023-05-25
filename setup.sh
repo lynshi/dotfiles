@@ -29,8 +29,17 @@ if [ "$codename" = "bionic" ]; then
     sudo apt update
 fi
 
-echo -e "${BLUE}Installing ansible...${NC}"
-sudo apt install -y ansible
+pip_installed=$(python3 -m pip -V)
+if [[ $? -ne 0 ]]; then
+    echo -e "${RED}'pip' not installed, aborting!${NC}"
+    exit 1
+fi
+
+echo -e "${BLUE}Installing ansible via pip...${NC}"
+python3 -m pip install --user ansible
+
+echo -e "${BLUE}Adding $HOME/.local/bin to PATH...${NC}"
+export PATH=${PATH}:${HOME}/.local/bin
 
 echo -e "${BLUE}Installing ansible plugins...${NC}"
 ansible-galaxy collection install community.general
