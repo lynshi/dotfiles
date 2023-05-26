@@ -1,18 +1,18 @@
 - hosts: mycomputer
   tasks:
-    - name: Download Go 1.15.2
+    - name: Download Go 1.20.4
       get_url:
-        url: "https://golang.org/dl/go1.15.2.linux-amd64.tar.gz"
+        url: "https://golang.org/dl/go1.20.4.linux-amd64.tar.gz"
         dest: "/tmp"
     - name: Install Go
       become: true
       unarchive:
-        src: "/tmp/go1.15.2.linux-amd64.tar.gz"
+        src: "/tmp/go1.20.4.linux-amd64.tar.gz"
         dest: "/usr/local"
     - name: Remove Go tarball
       file:
         state: absent
-        path: "/tmp/go1.15.2.linux-amd64.tar.gz"
+        path: "/tmp/go1.20.4.linux-amd64.tar.gz"
     - name: Update ~/.bashrc for go
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
