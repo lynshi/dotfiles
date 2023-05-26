@@ -5,9 +5,11 @@ Collection of dotfiles and other setup scripts for setting up a new Linux machin
 
 ## Example
 ```
-./setup.sh -i hosts.yaml core.yaml git.yaml azure.yaml go.yaml python.yaml node.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'"
+./setup.sh -i hosts.yaml core.yaml git.yaml azure.yaml dotnet.yaml go.yaml python.yaml node.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'"
 ```
 The `-i hosts.yaml` option [runs the playbook on localhost without warnings](https://github.com/ansible/ansible/issues/33132#issuecomment-363908285).
+
+Add `gcm-wsl.yaml` or `gcm.yml` after reading the section below.
 
 ## Warning
 You may have to restart your shell to get `virtualenvwrapper` to detect `virtualenv` properly. I haven't had time to debug this :/
