@@ -28,3 +28,6 @@ On WSL, you should install Git for Windows on Windows and use `gcm-wsl.yaml` to 
 ## Omitted on MacOS
 - Go is installed via a package file on Mac, so is omitted from automation.
 - .NET seems to be an installer too.
+
+## Notes
+- The `Update ~/.zshrc for virtualenvwrapper` step might need to be edited as the Python version changes.

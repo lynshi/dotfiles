@@ -4,6 +4,7 @@
       pip:
         name: virtualenvwrapper
         executable: pip3
+        extra_args: --user
     - name: Update ~/.bashrc for virtualenvwrapper
       when: ansible_facts['os_family'] == "Debian"
       blockinfile:
@@ -16,7 +17,7 @@
         block: |
           export WORKON_HOME=~/.virtualenv
           export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-          source /usr/local/bin/virtualenvwrapper.sh
+          source ~/.local/bin/virtualenvwrapper.sh
     - name: Update ~/.zshrc for virtualenvwrapper
       when: ansible_facts['os_family'] == "Darwin"
       blockinfile:
@@ -29,4 +30,5 @@
         block: |
           export WORKON_HOME=~/.virtualenv
           export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-          source /usr/local/bin/virtualenvwrapper.sh
+          export PATH=$PATH:$HOME/Library/Python/3.9/bin
+          source $HOME/Library/Python/3.9/bin/virtualenvwrapper.sh
