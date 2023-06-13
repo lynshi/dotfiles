@@ -1,9 +1,5 @@
 - hosts: mycomputer
   tasks:
-    - name: Install pip
-      become: yes
-      apt:
-        name: "python3-pip"
     - name: Install virtualenvwrapper
       pip:
         name: virtualenvwrapper
