@@ -1,19 +1,23 @@
 - hosts: mycomputer
   tasks:
     - name: Download Go 1.20.4
+      when: ansible_facts['os_family'] == "Debian"
       get_url:
         url: "https://golang.org/dl/go1.20.4.linux-amd64.tar.gz"
         dest: "/tmp"
     - name: Install Go
+      when: ansible_facts['os_family'] == "Debian"
       become: true
       unarchive:
         src: "/tmp/go1.20.4.linux-amd64.tar.gz"
         dest: "/usr/local"
     - name: Remove Go tarball
+      when: ansible_facts['os_family'] == "Debian"
       file:
         state: absent
         path: "/tmp/go1.20.4.linux-amd64.tar.gz"
     - name: Update ~/.bashrc for go
+      when: ansible_facts['os_family'] == "Debian"
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
         insertafter: EOF

@@ -19,3 +19,6 @@ Nowadays, the only environment where special setup seems to be needed is WSL, so
 
 ### Windows Subsystem for Linux
 On WSL, you should install Git for Windows on Windows and use `gcm-wsl.yaml` to update `.gitconfig` to use Git for Windows for authentication. You can find the latest docs [here](https://github.com/GitCredentialManager/git-credential-manager/blob/main/docs/wsl.md#windows-subsystem-for-linux-wsl).
+
+## Go
+Go is installed via a package file on Mac, so is omitted from automation.
