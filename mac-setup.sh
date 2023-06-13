@@ -19,8 +19,7 @@ trap end_setup ERR
 echo -e "${BLUE}Updating packages...${NC}"
 brew update
 
-pip_installed=$(python3 -m pip -V)
-if [[ $? -ne 0 ]]; then
+if ! python3 -m pip -V; then
     echo -e "${RED}'pip' not installed, aborting!${NC}"
     exit 1
 fi
