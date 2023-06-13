@@ -1,15 +1,12 @@
 - hosts: mycomputer
   tasks:
-    - name: Install pip
-      become: yes
-      apt:
-        name: "python3-pip"
     - name: Install virtualenvwrapper
       pip:
         name: virtualenvwrapper
         executable: pip3
         extra_args: --user
     - name: Update ~/.bashrc for virtualenvwrapper
+      when: ansible_facts['os_family'] == "Debian"
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
         insertafter: EOF
@@ -19,5 +16,19 @@
         marker_end: "END"
         block: |
           export WORKON_HOME=~/.virtualenv
-          export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.10
+          export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
           source ~/.local/bin/virtualenvwrapper.sh
+    - name: Update ~/.zshrc for virtualenvwrapper
+      when: ansible_facts['os_family'] == "Darwin"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR VIRTUALENVWRAPPER -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          export WORKON_HOME=~/.virtualenv
+          export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+          export PATH=$PATH:$HOME/Library/Python/3.9/bin
+          source $HOME/Library/Python/3.9/bin/virtualenvwrapper.sh

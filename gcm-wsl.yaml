@@ -6,8 +6,3 @@
         name: credential.helper
         scope: global
         value: "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe"
-    - name: Setup for Azure DevOps
-      community.general.git_config:
-        name: credential.https://dev.azure.com.useHttpPath
-        scope: global
-        value: true

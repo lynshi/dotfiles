@@ -10,8 +10,22 @@
       args:
         executable: /bin/bash
     - name: Update ~/.bashrc for nvm
+      when: ansible_facts['os_family'] == "Debian"
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR NVM -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+    - name: Update ~/.zshrc for nvm
+      when: ansible_facts['os_family'] == "Darwin"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.zshrc"
         insertafter: EOF
         create: yes
         marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR NVM -->"
