@@ -1,6 +1,7 @@
 - hosts: mycomputer
   tasks:
     - name: Install .NET SDK 6.0
+      when: ansible_facts['os_family'] == "Debian"
       become: yes
       apt:
         name: "dotnet-sdk-6.0"
