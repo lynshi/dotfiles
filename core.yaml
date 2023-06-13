@@ -17,13 +17,39 @@
         marker_end: "END"
         block: |
           PS1="\t $PS1" # Always show timestamp in case of WSL clock drift.
-    - name: Update ~/.bashrc for ansible
+      when: ansible_facts['os_family'] == "Debian"
+    - name: Update ~/.bashrc with local bin folder.
+      when: ansible_facts['os_family'] == "Debian"
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
         insertafter: EOF
         create: yes
-        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR ANSIBLE -->"
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR LOCAL BIN -->"
         marker_begin: "BEGIN"
         marker_end: "END"
         block: |
           export PATH=$PATH:$HOME/.local/bin
+    - name: Update ~/.zshrc with local bin folder.
+      when: ansible_facts['os_family'] == "Darwin"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR LOCAL BIN -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          export PATH=$PATH:$HOME/.local/bin
+    - name: Update ~/.zshrc with terminal coloring.
+      when: ansible_facts['os_family'] == "Darwin"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR COLORING -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          autoload -U colors && colors
+          PS1="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[green]%}%m %{$fg[magenta]%}%~ %{$reset_color%}%% "
+          autoload -Uz compinit && compinit
