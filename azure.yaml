@@ -17,14 +17,14 @@
         repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ {{ distro_name.stdout }} main"
         state: present
       become: true
-    - name: Install the Azure CLI
+    - name: Install the Azure CLI (Debian)
       when: ansible_facts['os_family'] == "Debian"
       apt:
         name: azure-cli
         state: present
         force: true
       become: true
-    - name: Install the Azure CLI
+    - name: Install the Azure CLI (Darwin)
       when: ansible_facts['os_family'] == "Darwin"
       community.general.homebrew:
         name: azure-cli
