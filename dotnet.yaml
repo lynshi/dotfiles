@@ -32,5 +32,5 @@
         marker_begin: "BEGIN"
         marker_end: "END"
         block: |
-          export PATH=$PATH:$HOME/.dotnet
-          export DOTNET_ROOT="$(dirname $(which dotnet))"
+          export DOTNET_ROOT=$HOME/.dotnet
+          export PATH=$PATH:$HOME/.dotnet:$HOME/.dotnet/tools
