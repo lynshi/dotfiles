@@ -1,7 +1,36 @@
 - hosts: mycomputer
   tasks:
-    - name: Install .NET SDK 6.0
+    # See
+    # - https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#scripted-install
+    # - Available versions: https://dotnet.microsoft.com/en-us/download/dotnet
+    - name: Download .NET installer
       when: ansible_facts['os_family'] == "Debian"
-      become: yes
-      apt:
-        name: "dotnet-sdk-6.0"
+      get_url:
+        url: "https://dot.net/v1/dotnet-install.sh"
+        dest: "/tmp"
+    - name: Changing perm of "/tmp/dotnet-install.sh", adding "+x"
+      when: ansible_facts['os_family'] == "Debian"
+      file:
+        dest: /tmp/dotnet-install.sh
+        mode: +x
+    - name: Install .NET SDK 6.0.408
+      when: ansible_facts['os_family'] == "Debian"
+      ansible.builtin.script:
+        cmd: /tmp/dotnet-install.sh --version 6.0.408
+    - name: Remove .NET installer
+      when: ansible_facts['os_family'] == "Debian"
+      file:
+        state: absent
+        path: "/tmp/dotnet-install.sh"
+    - name: Update ~/.bashrc for .NET
+      when: ansible_facts['os_family'] == "Debian"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR .NET -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          export PATH=$PATH:$HOME/.dotnet
+          export DOTNET_ROOT="$(dirname $(which dotnet))"
