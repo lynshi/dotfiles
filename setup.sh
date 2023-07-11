@@ -38,7 +38,7 @@ echo -e "${BLUE}Installing ansible via pip...${NC}"
 python3 -m pip install --user ansible
 
 echo -e "${BLUE}Adding $HOME/.local/bin to PATH...${NC}"
-export PATH=${PATH}:${HOME}/.local/bin
+export PATH="${PATH}:${HOME}/.local/bin"
 
 echo -e "${BLUE}Installing ansible plugins...${NC}"
 ansible-galaxy collection install community.general

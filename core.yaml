@@ -28,7 +28,7 @@
         marker_begin: "BEGIN"
         marker_end: "END"
         block: |
-          export PATH=$PATH:$HOME/.local/bin
+          export PATH="$PATH:$HOME/.local/bin"
     - name: Update ~/.zshrc with local bin folder.
       when: ansible_facts['os_family'] == "Darwin"
       blockinfile:
@@ -39,7 +39,7 @@
         marker_begin: "BEGIN"
         marker_end: "END"
         block: |
-          export PATH=$PATH:$HOME/.local/bin
+          export PATH="$PATH:$HOME/.local/bin"
     - name: Update ~/.zshrc with terminal coloring.
       when: ansible_facts['os_family'] == "Darwin"
       blockinfile:
