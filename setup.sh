@@ -29,6 +29,7 @@ if [ "$codename" = "bionic" ]; then
     sudo apt update
 fi
 
+sudo apt install -y python3-pip
 if ! python3 -m pip -V; then
     echo -e "${RED}'pip' not installed, aborting!${NC}"
     exit 1
