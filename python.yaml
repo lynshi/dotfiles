@@ -29,6 +29,5 @@
         marker_end: "END"
         block: |
           export WORKON_HOME=~/.virtualenv
-          export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-          export PATH="$PATH:$HOME/Library/Python/3.9/bin"
-          source $HOME/Library/Python/3.9/bin/virtualenvwrapper.sh
+          export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
+          source /opt/homebrew/bin/virtualenvwrapper.sh
