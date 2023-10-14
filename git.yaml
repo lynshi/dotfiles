@@ -20,3 +20,8 @@
         name: credential.https://dev.azure.com.useHttpPath
         scope: global
         value: true
+    - name: Auto setup remote on push
+      community.general.git_config:
+        name: push.autoSetupRemote
+        scope: global
+        value: true
