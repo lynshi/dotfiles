@@ -1,9 +1,0 @@
-- hosts: mycomputer
-  tasks:
-    # https://github.com/GitCredentialManager/git-credential-manager/blob/793a74cd540fb6030e2c7ee5e204f37a5f2a20d3/docs/wsl.md#windows-subsystem-for-linux-wsl
-    - name: Tap microsoft/git
-      community.general.homebrew_tap:
-        name: microsoft/git
-    - name: Install Git Credential Manager
-      community.general.homebrew_cask:
-        name: git-credential-manager-core
