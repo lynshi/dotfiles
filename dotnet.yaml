@@ -1,6 +1,6 @@
 - hosts: mycomputer
   vars_files:
-    - /vars/versions.yaml
+    - vars/versions.yaml
   tasks:
     # See
     # - https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#scripted-install

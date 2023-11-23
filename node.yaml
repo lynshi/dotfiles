@@ -1,6 +1,6 @@
 - hosts: mycomputer
   vars_files:
-    - /vars/versions.yaml
+    - vars/versions.yaml
   tasks:
     - name: Install nvm
       shell: >

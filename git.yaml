@@ -25,11 +25,7 @@
         name: push.autoSetupRemote
         scope: global
         value: true
-    - name: Tap microsoft/git (Darwin)
-      when: ansible_facts['os_family'] == "Darwin"
-      community.general.homebrew_tap:
-        name: microsoft/git
     - name: Install Git Credential Manager (Darwin)
       when: ansible_facts['os_family'] == "Darwin"
       community.general.homebrew_cask:
-        name: git-credential-manager-core
+        name: git-credential-manager
