@@ -16,11 +16,23 @@ function end_setup {
 }
 trap end_setup ERR
 
+xcode_installed=$(xcode-select -p)
+if [ $xcode_installed -ne 0 ]; then
+    echo -e "${RED}Please install XCode from the App Store!${NC}"
+    exit 1
+fi
+
+brew_installed=$(brew -v)
+if [ $brew_installed -ne 0 ]; then
+    echo -e "${RED}Please install brew: https://github.com/Homebrew/brew/releases/latest${NC}"
+    exit 1
+fi
+
 echo -e "${BLUE}Updating packages...${NC}"
 brew update
 
 brew_python_present=$(brew list python3 &>/dev/null; echo $?)
-if [ $brew_python_present -eq 1 ]; then
+if [ $brew_python_present -ne 0 ]; then
     echo -e "${BLUE}Installing python3 via brew...${NC}"
     brew install python3
 
