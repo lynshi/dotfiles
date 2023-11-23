@@ -1,8 +1,8 @@
-Collection of dotfiles and other setup scripts for setting up a new Linux machine.
+Collection of dotfiles and other setup scripts for setting up a new Linux/Mac machine.
 
 # Tested environments
 - Ubuntu 22.04
-- MacOS (M1)
+- Apple M1 Pro
 
 # Usage
 `setup.sh` installs dependencies required for the Ansible playbooks to run before running said playbooks. All arguments passed to it are forwarded to the `ansible-playbook` command.
