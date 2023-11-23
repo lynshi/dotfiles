@@ -9,6 +9,8 @@ Collection of dotfiles and other setup scripts for setting up a new Linux machin
 
 `mac-setup.sh` does the same thing but for Mac.
 
+To change the version of things to install, update the versions in `vars/versions.yaml`.
+
 ## Example
 ```bash
 yourGitEmail=""
@@ -34,4 +36,3 @@ On WSL, you should install Git for Windows on Windows and use `gcm-wsl.yaml` to 
 
 ## Omitted on MacOS
 - Go is installed via a package file on Mac, so is omitted from automation.
-- .NET seems to be an installer too.
