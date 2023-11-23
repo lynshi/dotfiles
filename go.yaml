@@ -1,25 +1,48 @@
 - hosts: mycomputer
   tasks:
-    - name: Download Go 1.20.4
+    - name: "Download Go {{ goVersion }} (Debian)"
       when: ansible_facts['os_family'] == "Debian"
       get_url:
-        url: "https://golang.org/dl/go1.20.4.linux-amd64.tar.gz"
-        dest: "/tmp"
+        url: "https://golang.org/dl/go{{ goVersion }}.linux-amd64.tar.gz"
+        dest: "/tmp/go.tar.gz"
+    - name: "Download Go {{ goVersion }} (Darwin ARM)"
+      when:
+        - ansible_facts['os_family'] == "Darwin"
+        - ansible_facts['architecture'] == "arm64"
+      get_url:
+        url: "https://golang.org/dl/go{{ goVersion }}.darwin-arm64.tar.gz"
+        dest: "/tmp/go.tar.gz"
+    - name: "Download Go {{ goVersion }} (Darwin Intel)"
+      when:
+        - ansible_facts['os_family'] == "Darwin"
+        - ansible_facts['architecture'] == "x86_64"
+      get_url:
+        url: "https://golang.org/dl/go{{ goVersion }}.darwin-amd64.tar.gz"
+        dest: "/tmp/go.tar.gz"
     - name: Install Go
-      when: ansible_facts['os_family'] == "Debian"
       become: true
       unarchive:
-        src: "/tmp/go1.20.4.linux-amd64.tar.gz"
+        src: "/tmp/go.tar.gz"
         dest: "/usr/local"
     - name: Remove Go tarball
-      when: ansible_facts['os_family'] == "Debian"
       file:
         state: absent
-        path: "/tmp/go1.20.4.linux-amd64.tar.gz"
-    - name: Update ~/.bashrc for go
+        path: "/tmp/go.tar.gz"
+    - name: Update ~/.bashrc for go (Debian)
       when: ansible_facts['os_family'] == "Debian"
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR GO -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          export PATH="$PATH:/usr/local/go/bin"
+    - name: Update ~/.zshrc for go (Darwin)
+      when: ansible_facts['os_family'] == "Darwin"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.zshrc"
         insertafter: EOF
         create: yes
         marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR GO -->"

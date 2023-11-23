@@ -33,6 +33,3 @@ You may have to restart your shell to get `virtualenvwrapper` to detect `virtual
 
 ### Windows Subsystem for Linux
 On WSL, you should install Git for Windows on Windows and use `gcm-wsl.yaml` to update `.gitconfig` to use Git for Windows for authentication. You can find the latest docs [here](https://github.com/GitCredentialManager/git-credential-manager/blob/main/docs/wsl.md#windows-subsystem-for-linux-wsl).
-
-## Omitted on MacOS
-- Go is installed via a package file on Mac, so is omitted from automation.

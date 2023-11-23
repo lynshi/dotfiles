@@ -1,1 +1,2 @@
 dotnetVersion: "6.0.408" # https://dotnet.microsoft.com/en-us/download/dotnet
+goVersion: "1.20.4" # https://go.dev/dl/
