@@ -10,8 +10,15 @@ Collection of dotfiles and other setup scripts for setting up a new Linux machin
 `mac-setup.sh` does the same thing but for Mac.
 
 ## Example
-```
-./setup.sh -i hosts.yaml core.yaml git.yaml azure.yaml dotnet.yaml go.yaml python.yaml node.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'"
+```bash
+yourGitEmail=""
+yourName=""
+
+# Linux
+./setup.sh -i hosts.yaml azure.yaml core.yaml dotnet.yaml git.yaml go.yaml python.yaml node.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'"
+
+# Mac
+./mac-setup.sh -i hosts.yaml azure.yaml core.yaml dotnet.yaml git.yaml go.yaml python.yaml node.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'"
 ```
 The `-i hosts.yaml` option [runs the playbook on localhost without warnings](https://github.com/ansible/ansible/issues/33132#issuecomment-363908285).
 

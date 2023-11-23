@@ -7,7 +7,8 @@
         dest: "{{ ansible_env.HOME }}/.vimrc"
 
     # Set up .bashrc.
-    - name: Updating ~/.bashrc to print timestamp
+    - name: Updating ~/.bashrc to print timestamp (Debian)
+      when: ansible_facts['os_family'] == "Debian"
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
         insertafter: EOF
@@ -17,8 +18,7 @@
         marker_end: "END"
         block: |
           PS1="\t $PS1" # Always show timestamp in case of WSL clock drift.
-      when: ansible_facts['os_family'] == "Debian"
-    - name: Update ~/.bashrc with local bin folder.
+    - name: Update ~/.bashrc with local bin folder (Debian)
       when: ansible_facts['os_family'] == "Debian"
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.bashrc"
@@ -29,7 +29,7 @@
         marker_end: "END"
         block: |
           export PATH="$PATH:$HOME/.local/bin"
-    - name: Update ~/.zshrc with local bin folder.
+    - name: Update ~/.zshrc with local bin folder (Darwin)
       when: ansible_facts['os_family'] == "Darwin"
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.zshrc"
@@ -40,7 +40,7 @@
         marker_end: "END"
         block: |
           export PATH="$PATH:$HOME/.local/bin"
-    - name: Update ~/.zshrc with terminal coloring.
+    - name: Update ~/.zshrc with terminal coloring (Darwin)
       when: ansible_facts['os_family'] == "Darwin"
       blockinfile:
         dest: "{{ ansible_env.HOME }}/.zshrc"
