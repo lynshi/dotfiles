@@ -33,8 +33,8 @@ brew update
 
 brew_python_present=$(brew list python3 &>/dev/null; echo $?)
 if [ $brew_python_present -ne 0 ]; then
-    echo -e "${BLUE}Installing python3 via brew...${NC}"
-    brew install python3
+    echo -e "${BLUE}Installing Python 3.11 via brew...${NC}"
+    brew install python@3.11
 
     echo -e "${RED}Please restart your terminal for the brew-installed Python to take effect...${NC}"
     exit 0
@@ -48,9 +48,8 @@ fi
 echo -e "${BLUE}Installing ansible via pip...${NC}"
 python3 -m pip install --user ansible
 
-echo -e "${BLUE}Adding $HOME/.local/bin to PATH...${NC}"
-
-export PATH="${PATH}:${HOME}/.local/bin"
+echo -e "${BLUE}Adding ${HOME}/Library/Python/3.11/bin to PATH...${NC}"
+export PATH="${PATH}:${HOME}/Library/Python/3.11/bin"
 
 echo -e "${BLUE}Installing ansible plugins...${NC}"
 ansible-galaxy collection install community.general
