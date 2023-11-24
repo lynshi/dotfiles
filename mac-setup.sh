@@ -22,11 +22,6 @@ if [ $brew_installed -ne 0 ]; then
 fi
 
 set -e
-function end_setup {
-    echo -e "${RED}Set up failed.${NC}"
-    exit 1
-}
-trap end_setup ERR
 
 echo -e "${BLUE}Updating packages...${NC}"
 brew update
