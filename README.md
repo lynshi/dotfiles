@@ -17,10 +17,10 @@ yourGitEmail=""
 yourName=""
 
 # Linux
-./setup.sh -i hosts.yaml azure.yaml core.yaml dotnet.yaml git.yaml go.yaml node.yaml python.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'"
+./setup.sh -i hosts.yaml azure.yaml core.yaml dotnet.yaml git.yaml go.yaml node.yaml python.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'" --ask-become-pass
 
 # Mac
-./mac-setup.sh -i hosts.yaml azure.yaml core.yaml dotnet.yaml git.yaml go.yaml node.yaml python.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'"
+./mac-setup.sh -i hosts.yaml azure.yaml core.yaml dotnet.yaml git.yaml go.yaml node.yaml python.yaml --extra-vars "git_email='${yourGitEmail}' git_name='${yourName}'" --ask-become-pass
 ```
 The `-i hosts.yaml` option [runs the playbook on localhost without warnings](https://github.com/ansible/ansible/issues/33132#issuecomment-363908285).
 
