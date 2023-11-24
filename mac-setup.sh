@@ -52,4 +52,4 @@ ansible-galaxy collection install community.general
 echo -e "${BLUE}Running playbooks...${NC}"
 ansible-playbook "$@"
 
-echo -e "${GREEN}Done setting up! Please run \"source ~/.zshrc\" to complete setup.${NC}"
+echo -e "${GREEN}Done setting up! If there are no failed ansible tasks above, run \"source ~/.zshrc\" to complete setup.${NC}"
