@@ -52,7 +52,7 @@
           autoload -U colors && colors
           PS1="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[green]%}%m %{$fg[magenta]%}%~ %{$reset_color%}%% "
           autoload -Uz compinit && compinit
-    - name: Install the gnu-tar (Darwin)
+    - name: Install gnu-tar (Darwin)
       # Needed for unarchive.
       when: ansible_facts['os_family'] == "Darwin"
       community.general.homebrew:
