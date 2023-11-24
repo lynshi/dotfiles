@@ -3,8 +3,8 @@
     - vars/versions.yaml
   tasks:
     - name: Install nvm
-      shell: >
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvmVersion }}/install.sh | bash
+      ansible.builtin.shell: >
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v{{ nvmVersion }}/install.sh | bash
       args:
         creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
     - name: Install node
