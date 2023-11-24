@@ -27,8 +27,7 @@
         marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR VIRTUALENVWRAPPER -->"
         marker_begin: "BEGIN"
         marker_end: "END"
-        # See "Big Sur" comments in https://stackoverflow.com/a/49528037
         block: |
-          export WORKON_HOME=~/.virtualenv
+          export WORKON_HOME=$HOME/.virtualenv
           export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
-          source /opt/homebrew/bin/virtualenvwrapper.sh
+          source $HOME/Library/Python/3.11/bin/virtualenvwrapper.sh
