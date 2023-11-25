@@ -49,6 +49,9 @@ export PATH="${PATH}:${HOME}/Library/Python/3.11/bin"
 echo -e "${BLUE}Installing ansible plugins...${NC}"
 ansible-galaxy collection install community.general
 
+echo -e "${BLUE}Installing gnu-tar (required by ansible)...${NC}"
+brew install gnu-tar
+
 echo -e "${BLUE}Running playbooks...${NC}"
 ansible-playbook "$@"
 
