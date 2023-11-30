@@ -21,8 +21,6 @@ if [ $brew_installed -ne 0 ]; then
     exit 1
 fi
 
-set -e
-
 echo -e "${BLUE}Updating packages...${NC}"
 brew update
 
@@ -39,6 +37,9 @@ if ! python3 -m pip -V; then
     echo -e "${RED}'pip' not installed, aborting!${NC}"
     exit 1
 fi
+
+# Move -e here so we don't exit if one of the checks above fails expectedly.
+set -e
 
 echo -e "${BLUE}Installing ansible via pip...${NC}"
 python3 -m pip install --user ansible
