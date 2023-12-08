@@ -1,4 +1,6 @@
 - hosts: mycomputer
+  vars_files:
+    - vars/flags.yaml
   tasks:
     - name: Set Git name
       community.general.git_config:
@@ -16,6 +18,7 @@
         scope: global
         value: vim
     - name: Setup for Azure DevOps
+      when: {{ setupGitForAdo }}
       community.general.git_config:
         name: credential.https://dev.azure.com.useHttpPath
         scope: global
@@ -29,3 +32,32 @@
       when: ansible_facts['os_family'] == "Darwin"
       community.general.homebrew_cask:
         name: git-credential-manager
+    - name: Update ~/.bashrc for git completion
+      when: ansible_facts['os_family'] == "Debian"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR GIT COMPLETION -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          if [ ! -f !/.git-completion.bash]; then
+            wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
+          fi
+          . ~/.git-completion.bash
+    - name: Download git-completion.bash for MacOS
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+        dest: ~/.git-completion.bash
+    - name: Update ~/.zshrc for git completion
+      when: ansible_facts['os_family'] == "Darwin"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR GIT COMPLETION -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          autoload -Uz compinit && compinit

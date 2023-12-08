@@ -9,7 +9,7 @@ Collection of dotfiles and other setup scripts for setting up a new Linux/Mac ma
 
 `mac-setup.sh` does the same thing but for Mac.
 
-Remember to review the versions in `vars/versions.yaml` to see if any specified versions need to be changed.
+Remember to review the variables in files under `vars/` to see if anything needs to be changed.
 
 ## Example
 ```bash
