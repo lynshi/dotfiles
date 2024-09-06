@@ -6,3 +6,4 @@ set number
 set showcmd
 
 syntax on
+set backspace=indent,eol,start
