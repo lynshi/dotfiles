@@ -57,3 +57,21 @@
       when: ansible_facts['os_family'] == "Darwin"
       community.general.homebrew:
         name: gnu-tar
+    - name: Create completions directory
+      when: ansible_facts['os_family'] == "Darwin"
+      ansible.builtin.file:
+        path: ${HOME}/.zfunc
+        state: directory
+        mode: '0755'
+    - name: Update ~/.zshrc for completion
+      when: ansible_facts['os_family'] == "Darwin"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        insertafter: EOF
+        create: yes
+        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR GIT COMPLETION -->"
+        marker_begin: "BEGIN"
+        marker_end: "END"
+        block: |
+          fpath+=${HOME}/.zfunc
+          autoload -Uz compinit && compinit

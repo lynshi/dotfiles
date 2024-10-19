@@ -4,6 +4,10 @@
       shell: "pipx install virtualenvwrapper"
       args:
         executable: /bin/bash
+    - name: Install poetry
+      shell: "pipx install poetry && poetry completions zsh > ${HOME}/.zfunc/_poetry"
+      args:
+        executable: /bin/bash
     - name: Update ~/.bashrc for virtualenvwrapper
       when: ansible_facts['os_family'] == "Debian"
       blockinfile:
