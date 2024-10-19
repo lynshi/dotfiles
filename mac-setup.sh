@@ -33,16 +33,11 @@ if [ $brew_python_present -ne 0 ]; then
     exit 0
 fi
 
-if ! python3 -m pip -V; then
-    echo -e "${RED}'pip' not installed, aborting!${NC}"
-    exit 1
-fi
-
 # Move -e here so we don't exit if one of the checks above fails expectedly.
 set -e
 
-echo -e "${BLUE}Installing ansible via pip...${NC}"
-python3 -m pip install --user ansible
+echo -e "${BLUE}Installing ansible via pipx...${NC}"
+pipx install ansible
 
 echo -e "${BLUE}Adding ${HOME}/Library/Python/3.11/bin to PATH...${NC}"
 export PATH="${PATH}:${HOME}/Library/Python/3.11/bin"
