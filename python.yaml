@@ -1,37 +1,6 @@
 - hosts: mycomputer
   tasks:
-    - name: Install virtualenvwrapper
-      shell: "pipx install virtualenvwrapper"
+    - name: Install uv
+      shell: "curl -LsSf https://astral.sh/uv/install.sh | sh"
       args:
         executable: /bin/bash
-    - name: Install poetry
-      when: ansible_facts['os_family'] == "Darwin"
-      shell: "pipx install poetry && poetry completions zsh > ${HOME}/.zfunc/_poetry"
-      args:
-        executable: /bin/bash
-    - name: Update ~/.bashrc for virtualenvwrapper
-      when: ansible_facts['os_family'] == "Debian"
-      blockinfile:
-        dest: "{{ ansible_env.HOME }}/.bashrc"
-        insertafter: EOF
-        create: yes
-        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR VIRTUALENVWRAPPER -->"
-        marker_begin: "BEGIN"
-        marker_end: "END"
-        block: |
-          export WORKON_HOME=~/.virtualenv
-          export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-          source ~/.local/bin/virtualenvwrapper.sh
-    - name: Update ~/.zshrc for virtualenvwrapper
-      when: ansible_facts['os_family'] == "Darwin"
-      blockinfile:
-        dest: "{{ ansible_env.HOME }}/.zshrc"
-        insertafter: EOF
-        create: yes
-        marker: "# <-- {mark} ANSIBLE MANAGED BLOCK FOR VIRTUALENVWRAPPER -->"
-        marker_begin: "BEGIN"
-        marker_end: "END"
-        block: |
-          export WORKON_HOME=$HOME/.virtualenv
-          export VIRTUALENVWRAPPER_PYTHON="${HOME}/.local/pipx/venvs/virtualenvwrapper/bin/python3"
-          source "${HOME}/.local/pipx/venvs/virtualenvwrapper/bin/virtualenvwrapper.sh"
