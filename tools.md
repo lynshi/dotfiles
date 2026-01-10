@@ -1,4 +1,4 @@
-A collection of tools that I've found useful. If I'm setting up a new project, these are the tools I'm bringing today.
+A collection of tools that I've found useful, to reference when setting up a new project.
 
 # Python
 * [ruff](https://docs.astral.sh/ruff/): Linter and formatter.
